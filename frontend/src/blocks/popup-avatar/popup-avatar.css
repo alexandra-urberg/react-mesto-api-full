@@ -1,0 +1,3 @@
+.popup-avatar {
+    grid-template-rows: fit-content(272px);
+}

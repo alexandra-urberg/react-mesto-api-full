@@ -1,0 +1,8 @@
+.header__container-hidden {
+    z-index: 0;
+    visibility: hidden;
+    padding: 0;
+    margin: 0;
+    max-height: 0;
+    margin: 0 auto;
+}

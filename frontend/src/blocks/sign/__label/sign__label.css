@@ -1,0 +1,16 @@
+.sign__label {
+    padding: 0;
+    margin: 0 0 30px;
+}
+
+.sign__label:last-of-type {
+    margin: 0 0 216px;
+}
+
+@media screen and (max-width: 500px) {
+    .sign__label:last-of-type {
+        margin: 0 0 173px;
+    }
+}
+    
+

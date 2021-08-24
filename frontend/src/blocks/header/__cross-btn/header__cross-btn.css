@@ -1,0 +1,16 @@
+.header__cross-btn {
+    height: 30px;
+    width: 30px;
+    background-image: url(../../../images/Close-icon.svg);
+    background-repeat: no-repeat;
+    color: white;
+    opacity: 1;
+}
+
+@media screen and (max-width: 350px) {
+    .header__cross-btn {
+        height: 24px;
+        width: 24px;
+    }
+}
+

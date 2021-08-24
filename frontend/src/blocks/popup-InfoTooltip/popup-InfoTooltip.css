@@ -1,0 +1,10 @@
+.popup-InfoTooltip {
+    text-align: center;
+    padding-bottom: 23px;
+}
+
+@media screen and (max-width: 500px) {
+    .popup-InfoTooltip {
+        padding-bottom: 25px;
+    }   
+}

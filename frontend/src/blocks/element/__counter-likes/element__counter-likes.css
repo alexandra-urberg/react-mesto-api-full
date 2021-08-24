@@ -1,0 +1,11 @@
+.element__counter-likes {
+    color: black;
+    font-size: 13px;
+    line-height: 15px;
+    font-weight: 400;
+    font-style: normal;
+    margin-top: 3px;
+    margin-right: 5px;
+    margin-bottom: 0;
+    padding: 0;
+}

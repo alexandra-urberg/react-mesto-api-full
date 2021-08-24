@@ -1,0 +1,10 @@
+.profile__avatar {
+    background-image: url(../../../images/image.jpg);
+    background-size: cover;
+    background-position: center;
+    object-fit: center;
+    display: block;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+}

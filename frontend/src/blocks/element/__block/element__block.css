@@ -1,0 +1,11 @@
+.element__block {
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: fit-content(210px) fit-content(22px);
+    justify-content: space-between;
+    align-items: end;
+
+    border-radius: 0 0 10px 10px;
+    margin: 22px 25px 22px  15px;
+    padding: 0;
+}

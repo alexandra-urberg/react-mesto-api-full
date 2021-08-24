@@ -1,0 +1,24 @@
+.header__link-hidden {
+    text-decoration: none;
+    font-style: normal;
+    font-size: 18px;
+    line-height: 22px;
+    font-weight: 400;
+    color: rgba(169, 169, 169, 1);
+    margin: 0;
+    padding: 6px 24px 0 0;
+    cursor: pointer;
+}
+
+.header__link-hidden:hover {
+    opacity: 0.6;
+}
+
+@media screen and (max-width: 590px) {
+    .header__link-hidden {
+        font-size: 0;
+        line-height: 0;
+        padding: 0;
+        visibility: hidden;
+    }
+}

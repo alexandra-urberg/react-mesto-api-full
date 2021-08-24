@@ -1,0 +1,9 @@
+.main__profile {
+    margin-bottom: 50px;
+}
+
+@media screen and (min-width: 320px) and (max-width: 800px) {
+    .main__profile {
+        margin-bottom: 36px;
+    }
+}

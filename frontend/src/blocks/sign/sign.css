@@ -1,0 +1,12 @@
+.sign {
+    display: block;
+    padding: 60px 0 0;
+    text-align: center;
+}
+
+@media screen and (max-width: 500px) {
+    .sign {
+        padding: 40px 0 0;
+    }
+}
+    

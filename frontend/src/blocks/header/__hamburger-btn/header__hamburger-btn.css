@@ -1,0 +1,33 @@
+.header__hamburger-btn {
+    background-image: url(../../../images/menu.png);
+    background-repeat: no-repeat;
+    background-color: black;
+    border: none;
+    visibility: hidden;
+    z-index: 0;
+    position: relative;
+}
+
+.header__hamburger-btn:hover {
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.2s ease-in-out;
+}
+
+@media screen and (max-width: 590px) {
+    .header__hamburger-btn {
+        width: 24px;
+        height: 24px;
+        visibility: visible;
+        background-size: 100% 100%;
+        padding: 6px 0 0;
+        z-index: 1;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .header__hamburger-btn {
+        margin-right: 29px;
+    }
+
+}

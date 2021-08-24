@@ -1,0 +1,15 @@
+.sign__button-text {
+    font-weight: 400;
+    font-style: normal;
+    font-size: 18px;
+    line-height: 21.78px;
+    color: rgba(0, 0, 0, 1);
+    padding: 14px 0;
+}
+
+@media screen and (max-width: 500px) {
+    .sign__button-text {
+        font-size: 14px;
+        line-height: 16.94px;
+    }
+}

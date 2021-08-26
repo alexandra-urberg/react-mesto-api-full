@@ -1,5 +1,5 @@
 {  
-  "homepage": "http://mesa-alex.nomoredomains.work//",
+  "homepage": "http://mesa-alex.nomoredomains.work/",
   "name": "react-mesto-auth",
   "version": "0.1.0",
   "private": true,
@@ -41,7 +41,6 @@
     ]
   },
   "devDependencies": {
-    "@babel/core": "^7.14.6",
-    "gh-pages": "^3.2.3"
+    "@babel/core": "^7.14.6"
   }
 }

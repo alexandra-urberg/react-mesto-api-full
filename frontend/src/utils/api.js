@@ -16,6 +16,7 @@ class Api {
     getPersonalInformation() { //запрашиваем информацию с сервера о user/users
         return fetch(`${this._url}/users/me`, {
             method: 'GET',
+            credentials: 'include',
             headers: this._headers
         })
         .then(this._handleResponse);
@@ -24,6 +25,7 @@ class Api {
     editPersonalProfile(data) { // запрагиваем  измение инфомуции о user и сохранении его на сервере
         return fetch(`${this._url}/users/me`, {
             method: 'PATCH',
+            credentials: 'include',
             headers: this._headers,
             body: JSON.stringify({
                 name: data.name,
@@ -36,6 +38,7 @@ class Api {
     editAvatar(link) { //запрашиваем изменить avatar оf user и сохраненить его на сервере
         return fetch(`${this._url}/users/me/avatar`, {
             method: 'PATCH',
+            credentials: 'include',
             headers: this._headers,
             body: JSON.stringify({
                 avatar: link
@@ -47,6 +50,7 @@ class Api {
     getInitialCards() { //запрашиваем все карточки с фотографиями из сервера 
         return fetch(`${this._url}/cards`, {
             method: 'GET',
+            credentials: 'include',
             headers: this._headers
         })
         .then(this._handleResponse);
@@ -55,6 +59,7 @@ class Api {
     addNewCard(data) { // запрашиваем добавить новую карточку на сервер 
         return fetch (`${this._url}/cards`, {
             method: 'POST',
+            credentials: 'include',
             headers: this._headers,
             body: JSON.stringify({
                 name: data.name,
@@ -64,25 +69,29 @@ class Api {
         .then(this._handleResponse);
     }
 
-    addLike(id) { // запрашиваем постановить лайк
-        return fetch(`${this._url}/cards/likes/${id}`, {
+    addLike(cardId) { // запрашиваем постановить лайк
+        console.log(`${this._url}/cards/${cardId}/likes`)
+        return fetch(`${this._url}/cards/${cardId}/likes`, {
             method: 'PUT',
+            credentials: 'include',
             headers: this._headers
         })
         .then(this._handleResponse);
     }
 
-    deleteLike(id) { // запрашиваем удалить лайка 
-        return fetch(`${this._url}/cards/likes/${id}`, {
+    deleteLike(cardId) { // запрашиваем удалить лайка 
+        return fetch(`${this._url}/cards/${cardId}/likes`, {
            method: 'DELETE',
+           credentials: 'include',
            headers: this._headers
         })
         .then(this._handleResponse);
     }
 
-    deleteCard(id) { // запрашиваем уделить карточку с сервера
-        return fetch(`${this._url}/cards/${id}`, {
+    deleteCard(cardId) { // запрашиваем уделить карточку с сервера
+        return fetch(`${this._url}/cards/${cardId}`, {
             method: 'DELETE',
+            credentials: 'include',
             headers: this._headers
         })
         .then(this._handleResponse);
@@ -90,9 +99,8 @@ class Api {
 }
 
 const api = new Api ({
-    url: "https://mesto.nomoreparties.co/v1/cohort-24",
+    url: "http://mesto-alex.nomoredomains.work",
     headers: {
-        authorization: "7dfaf4c9-82d9-4096-b562-ec8631a23ab5",
         "Content-Type": "application/json",
     },
 })

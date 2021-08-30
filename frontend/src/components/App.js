@@ -41,43 +41,54 @@ const App = () => {
       setIsLoading(true);
       Promise.all([api.getPersonalInformation(), api.getInitialCards()])
         .then(([userData, cardData]) => {
-          setCurrentUser(userData);
-          setCards(cardData);
+          // console.log([userData])
+          // console.log([cardData])
+          // console.log([userData.data])
+          // console.log([cardData.data])
+          setCurrentUser(userData.data);
+          setCards(cardData.data);
         })
         .catch((error) => console.log(error))
         .finally(() => setIsLoading(false));
     }
   }, [isAuthorized]);
 
-  const tockenCheck = useCallback(() => {
-    const jwt = localStorage.getItem("jwt");
-    if (jwt) {
-      auth
-        .checkToken(jwt)
-        .then((res) => {
-          if(res) {
-            setEmail({ email: res.data.email });
-            setIsAuthorized(true);
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-          localStorage.removeItem("jwt");
-        });
-    }
-  }, []);
+  // const tockenCheck = useCallback(() => {
+    // проверяем токе
+    // const jwt = localStorage.getItem("jwt");
+    // if (jwt) {
+      // auth
+        // .checkToken(jwt)
+        // .then((res) => {
+          // if(res) {
+            // setEmail({ email: res.data.email });
+            // setIsAuthorized(true);
+          // }
+        // })
+        // .catch((error) => {
+          // console.log(error);
+          // localStorage.removeItem("jwt");
+        // });
+    // }
+  // }, []);
 
   useEffect(() => {
     tockenCheck();
   }, [tockenCheck]);
 
-  const handleUpdateUser = (userInformation) => {
+  const handleUpdateUser = (data) => {
     // внешний обработчик отвечающий за сохранение введенной информации о пользователе на сервер
     setIsLoading(true);
+    // console.log(data)
+    // console.log(data.name, data.about)
     api
-      .editPersonalProfile(userInformation)
-      .then((userData) => {
-        setCurrentUser(userData);
+      .editPersonalProfile(data)
+      .then((res) => {
+        setCurrentUser({
+          ...currentUser,
+          name: res.data.name,
+          about: res.data.about
+        });
       })
       .then(() => closeAllPopups())
       .catch((error) => console.log(error))
@@ -87,50 +98,60 @@ const App = () => {
   const handleUpdateAvatar = (link) => {
     // внешний обработчик отвечающий за сохранение аватара пользователя на сервер
     setIsLoading(true);
+    // console.log(link)
     api
       .editAvatar(link)
-      .then((userData) => {
-        setCurrentUser(userData);
+      .then((res) => {
+        setCurrentUser({...currentUser, avatar: res.data.avatar});
       })
       .then(() => closeAllPopups())
       .catch((error) => console.log(error))
       .finally(() => setIsLoading(false));
   };
 
-  const handleAddPlaceSubmit = (card) => {
+  const handleAddPlaceSubmit = (data) => {
     // внешний обработчик отвечающий за добавление новой карточки на сервер
     setIsLoading(true);
+    // console.log(data.title, data.link)
+    // console.log([data.name, data.link])
+    // console.log(data)
     api
-      .addNewCard(card)
+      .addNewCard(data)
       .then((newCard) => {
-        setCards([newCard, ...cards]);
+        // console.log([newCard.data])
+        // console.log([...cards])
+        setCards([newCard.data, ...cards]);
       })
       .then(() => closeAllPopups())
       .catch((error) => console.log(error))
       .finally(() => setIsLoading(false));
   };
 
-  const handleCardLike = (likes, cardId, currentUserId) => {
+  const handleCardLike = (card, currentUserId) => {
     // внешний обработчик отвечающий за постановку/удаление лайка на/с сервер/а
-    const isLiked = likes.some((card) => card._id === currentUserId); // Снова проверяем, есть ли уже лайк на этой карточке
-
-    if (isLiked) {
+    const isLiked = card.likes.some((card) => card._id === currentUserId); // Снова проверяем, есть ли уже лайк на этой карточке
+    console.log(isLiked)
+    // console.log(card._id)
+    //console.log(currentUserId)
+    if (!isLiked) {
+       //добавляем лайк
+      api
+      .addLike(card._id)
+      .then((newCard) => {
+        setCards((state) =>
+          state.map((c) => (c._id === card._id ? newCard.data : c))
+        );
+      })
+      .catch((error) => console.log(error));
+    } else {
       //удаляем Лайк
       api
-        .deleteLike(cardId)
+        .deleteLike(card._id)
         .then((newCard) => {
-          setCards((cards) =>
-            cards.map((c) => (c._id === cardId ? newCard : c))
-          );
-        })
-        .catch((error) => console.log(error));
-    } else {
-      //добавляем лайк
-      api
-        .addLike(cardId)
-        .then((newCard) => {
+          // console.log(newCard)
+          // console.log(newCard.data)
           setCards((state) =>
-            state.map((c) => (c._id === cardId ? newCard : c))
+            state.map((c) => (c._id === card._id ? newCard.data : c))
           );
         })
         .catch((error) => console.log(error));
@@ -196,17 +217,19 @@ const App = () => {
   }, []);
 
   const handleDeleteCard = (card) => {
+    // console.log(card)
     setRemoveCard(card);
     setIsDeletePopupImage(true);
   };
 
-  const handleCardDelete = () => {
+  const handleCardDelete = (card) => {
     // внешний обработчик отвечающий за удаление карточки с сервера
     setIsLoading(true);
+    console.log(card._id);
     api
-      .deleteCard(removeCard.cardId)
+      .deleteCard(card._id)
       .then(() => {
-        setCards((cards) => cards.filter((c) => c._id !== removeCard.cardId));
+        setCards((cards) => cards.filter((c) => c._id !== card._id));
       })
       .then(() => closeAllPopups())
       .catch((error) => console.log(error))
@@ -214,6 +237,7 @@ const App = () => {
   };
 
   const handleRegistration = (data) => {
+    // внешний обработчик отвечающий за регистрацию
     setIsLoading(true);
     auth
       .registration(data)
@@ -231,6 +255,7 @@ const App = () => {
   };
 
   const handleAuthorization = (data) => {
+    // внешний обработчик отвечающий за авторизацию
     setIsLoading(true);
     auth
       .authorize(data)
@@ -245,6 +270,7 @@ const App = () => {
   };
 
   const signOut = () => {
+    // внешний обработчик отвечающий за выход 
     localStorage.removeItem("jwt");
     history.push("/sign-in");
   };
@@ -311,6 +337,7 @@ const App = () => {
             onCardDelete={handleCardDelete}
             onClose={closeAllPopups}
             isLoading={isLoading}
+            card={removeCard} // добавляем/передаем информацию о карточке (id), для ее удаления
           />
           <ImagePopup card={selectedCard} onClose={closeAllPopups} />
           <InfoTooltip

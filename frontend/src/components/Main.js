@@ -46,15 +46,16 @@ const Main = ({
       <section id="elements" className="elements">
         <ul id="template__container" className="elements__container">
           {isLoading && (<p>Is Loading ...</p>)}
-          {cards.map(({ likes, _id, name, link, owner }) => {
+          {cards.map((card) => {
             return (
               <Card
-                likes={likes}
-                cardId={_id}
-                name={name}
-                link={link}
-                owner={owner}
-                key={_id}
+                card={card}
+                likes={card.likes}
+                cardId={card._id}
+                name={card.name}
+                link={card.link}
+                owner={card.owner}
+                key={card._id}
                 onDeleteCard={onDeleteCard}
                 onCardClick={onCardClick}
                 onCardLike={onCardLike}

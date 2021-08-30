@@ -72,9 +72,9 @@ const App = () => {
     // }
   // }, []);
 
-  useEffect(() => {
-    tockenCheck();
-  }, [tockenCheck]);
+  //useEffect(() => {
+    //tockenCheck();
+  //}, [tockenCheck]);
 
   const handleUpdateUser = (data) => {
     // внешний обработчик отвечающий за сохранение введенной информации о пользователе на сервер

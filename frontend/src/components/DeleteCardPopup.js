@@ -1,20 +1,20 @@
 import React from 'react';
 import PopupWithForm from './PopupWithForm';
 
-const DeleteCardPopup = (props) => {
-    function handleDelete(e) {
-        e.preventDefault();//Запрещаем браузеру переходить по адресу формы
-        props.onCardDelete();//Передаём значения управляемых компонентов во внешний обработчик);
+const DeleteCardPopup = ({card, onCardDelete, isOpen, onClose, isLoading}) => {
+    function handleDelet(e) {
+        e.preventDefault(); // Запрещаем браузеру переходить по адресу формы
+        onCardDelete(card); // Передаём значения управляемых компонентов во внешний обработчик;
     } 
 
     return (
         <PopupWithForm
-        isOpen={props.isOpen}
-        onSubmit={handleDelete}
-        onClose={props.onClose}
+        isOpen={isOpen}
+        onSubmit={handleDelet}
+        onClose={onClose}
         name="card-delete"
         title="Вы уверены?"
-        btn={props.isLoading ? 'Удаляем...' : 'Да'}
+        btn={isLoading ? 'Удаляем...' : 'Да'}
         >
         </PopupWithForm>
     )

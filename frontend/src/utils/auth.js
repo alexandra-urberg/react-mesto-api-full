@@ -1,7 +1,6 @@
 class Auth {
     constructor(options) {
       this._url = options.url;
-  
       this._headers = options.headers;
     }
   
@@ -16,9 +15,8 @@ class Auth {
     registration(data) {
       return fetch(`${this._url}/signup`, {
         method: "POST",
-  
+        credentials: 'include',
         headers: this._headers,
-  
         body: JSON.stringify(data),
       }).then(this._handleResponse);
     }
@@ -26,9 +24,8 @@ class Auth {
     authorize(data) {
       return fetch(`${this._url}/signin`, {
         method: "POST",
-  
+        credentials: 'include',
         headers: this._headers,
-  
         body: JSON.stringify(data),
       }).then(this._handleResponse);
     }
@@ -36,21 +33,21 @@ class Auth {
     checkToken(token) {
       return fetch(`${this._url}/users/me`, {
         method: "GET",
-  
+        credentials: 'include',
         headers: {
           "Content-Type": "application/json",
-  
-          Authorization: `Bearer ${token}`,
+          //Authorization: `Bearer ${token}`
         },
       }).then(this._handleResponse);
     }
   }
   
   const auth = new Auth({
-    url: "https://auth.nomoreparties.co",
-  
+    url: "http://mesto-alex.nomoredomains.work",
+
     headers: {
-      "Content-Type": "application/json",
+      'Accept': 'application/json',
+      "Content-Type": "application/json"
     },
   });
   

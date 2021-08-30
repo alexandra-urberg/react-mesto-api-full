@@ -30,16 +30,16 @@ class Auth {
       }).then(this._handleResponse);
     }
   
-    checkToken(token) {
-      return fetch(`${this._url}/users/me`, {
-        method: "GET",
-        credentials: 'include',
-        headers: {
-          "Content-Type": "application/json",
+    // checkToken(token) {
+      // return fetch(`${this._url}/users/me`, {
+        // method: "GET",
+        // credentials: 'include',
+        // headers: {
+        //  "Content-Type": "application/json",
           //Authorization: `Bearer ${token}`
-        },
-      }).then(this._handleResponse);
-    }
+        // },
+      // }).then(this._handleResponse);
+    // }
   }
   
   const auth = new Auth({

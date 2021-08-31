@@ -130,8 +130,8 @@ const App = () => {
   function handleCardLike(card, isLiked) {
     // внешний обработчик отвечающий за постановку/удаление лайка на/с сервер/а
      //const isLiked = data.likes.some((data) => data._id === currentUser._id); // Снова проверяем, есть ли уже лайк на этой карточке
-     console.log(isLiked)
-     console.log(card._id)
+     //console.log(isLiked)
+     //console.log(card._id)
     api
     .addDeleteLike(card._id, isLiked)
     .then((newData) => {
@@ -144,6 +144,7 @@ const App = () => {
   const handleEditAvatarClick = () => {
     setIsEditAvatarPopupOpen(true);//
   };
+
 
   const handleEditProfileClick = () => {
     setIsEditProfilePopupOpen(true);

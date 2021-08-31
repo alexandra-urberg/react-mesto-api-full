@@ -18,7 +18,7 @@ const Card = ({
     const cardLikeButtonClassName = `element__button-like ${// Создаём переменную, которую после зададим в `className` для кнопки лайка
         isLiked ? "element__button-like_active" : "" // переменная добавляющая сердечко
     }`;
-    console.log(isLiked);
+    // console.log(isLiked);
     
     const handleRemoveCard = () => {//обработчик передающий информауию от card в Main для открытия popup delete card, а также передает всю нужную информацию в App для удаления карточки 
         onDeleteCard(card);
@@ -27,6 +27,7 @@ const Card = ({
     const handleCardClick = () => {//обработчик передающий информауию от card в Main для открытия полноразмерной картинки
         onCardClick(card);
     };
+
 
     const hadleLikeClick = () => {//обработчик передающий информауию от card в Main для постановки лайк
         onCardLike(card, isLiked);

@@ -32,7 +32,7 @@ const App = () => {
   const [isRegistered, setIsRegistered] = useState(false);
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [email, setEmail] = useState({ email: "" });
-
+  
   let history = useHistory();
 
   useEffect(() => {
@@ -53,28 +53,28 @@ const App = () => {
     }
   }, [isAuthorized]);
 
-  // const tockenCheck = useCallback(() => {
-    // проверяем токе
-    // const jwt = localStorage.getItem("jwt");
-    // if (jwt) {
-      // auth
-        // .checkToken(jwt)
-        // .then((res) => {
-          // if(res) {
-            // setEmail({ email: res.data.email });
-            // setIsAuthorized(true);
-          // }
-        // })
-        // .catch((error) => {
-          // console.log(error);
-          // localStorage.removeItem("jwt");
-        // });
-    // }
-  // }, []);
+  const tockenCheck = useCallback(() => {
+    // проверяем токен
+    const jwt = localStorage.getItem("jwt");
+    if (jwt) {
+      auth
+        .checkToken(jwt)
+        .then((res) => {
+          if(res) {
+            setEmail({ email: res.data.email });
+            setIsAuthorized(true);
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+          localStorage.removeItem("jwt");
+        });
+    }
+  }, []);
 
-  //useEffect(() => {
-    //tockenCheck();
-  //}, [tockenCheck]);
+  useEffect(() => {
+    tockenCheck();
+  }, [tockenCheck]);
 
   const handleUpdateUser = (data) => {
     // внешний обработчик отвечающий за сохранение введенной информации о пользователе на сервер
@@ -127,40 +127,22 @@ const App = () => {
       .finally(() => setIsLoading(false));
   };
 
-  const handleCardLike = (card, currentUserId) => {
+  function handleCardLike(card, isLiked) {
     // внешний обработчик отвечающий за постановку/удаление лайка на/с сервер/а
-    const isLiked = card.likes.some((card) => card._id === currentUserId); // Снова проверяем, есть ли уже лайк на этой карточке
-    console.log(isLiked)
-    // console.log(card._id)
-    //console.log(currentUserId)
-    if (!isLiked) {
-       //добавляем лайк
-      api
-      .addLike(card._id)
-      .then((newCard) => {
-        setCards((state) =>
-          state.map((c) => (c._id === card._id ? newCard.data : c))
-        );
-      })
-      .catch((error) => console.log(error));
-    } else {
-      //удаляем Лайк
-      api
-        .deleteLike(card._id)
-        .then((newCard) => {
-          // console.log(newCard)
-          // console.log(newCard.data)
-          setCards((state) =>
-            state.map((c) => (c._id === card._id ? newCard.data : c))
-          );
-        })
-        .catch((error) => console.log(error));
-    }
-  };
+     //const isLiked = data.likes.some((data) => data._id === currentUser._id); // Снова проверяем, есть ли уже лайк на этой карточке
+     console.log(isLiked)
+     console.log(card._id)
+    api
+    .addDeleteLike(card._id, isLiked)
+    .then((newData) => {
+      setCards((state) => state.map((c) => c._id === card._id ? newData.data : c))
+    })
+    .catch((error) => console.log(error))
+   };
 
   //обработчики открытий попааов
   const handleEditAvatarClick = () => {
-    setIsEditAvatarPopupOpen(true);
+    setIsEditAvatarPopupOpen(true);//
   };
 
   const handleEditProfileClick = () => {
@@ -225,7 +207,7 @@ const App = () => {
   const handleCardDelete = (card) => {
     // внешний обработчик отвечающий за удаление карточки с сервера
     setIsLoading(true);
-    console.log(card._id);
+    // console.log(card._id);
     api
       .deleteCard(card._id)
       .then(() => {
@@ -273,6 +255,7 @@ const App = () => {
     // внешний обработчик отвечающий за выход 
     localStorage.removeItem("jwt");
     history.push("/sign-in");
+    window.location.reload("/sign-in"); // перезагружаем страницу после выхода, что вся информация о предыдущем user удалялась
   };
 
   return (

@@ -2,8 +2,8 @@ class Api {
     constructor(options) {
         this._url = options.url;
         this._headers = options.headers;
-        this.addLike = this.addLike.bind(this);
-        this.deleteLike = this.deleteLike.bind(this);
+        // this.addLike = this.addLike.bind(this);
+        // this.deleteLike = this.deleteLike.bind(this);
     }
 
     _handleResponse(res) {
@@ -69,21 +69,11 @@ class Api {
         .then(this._handleResponse);
     }
 
-    addLike(cardId) { // запрашиваем постановить лайк
-        console.log(`${this._url}/cards/${cardId}/likes`)
-        return fetch(`${this._url}/cards/${cardId}/likes`, {
-            method: 'PUT',
-            credentials: 'include',
+    addDeleteLike(cardId, isLiked) {
+        return fetch(`${this._url}/cards/${cardId}/likes`,{
+            method: isLiked ? 'DELETE' : 'PUT',
+            credentials: 'include', // не забываем про include для cookies, чтобы не вылезала ошибка об авторизации
             headers: this._headers
-        })
-        .then(this._handleResponse);
-    }
-
-    deleteLike(cardId) { // запрашиваем удалить лайка 
-        return fetch(`${this._url}/cards/${cardId}/likes`, {
-           method: 'DELETE',
-           credentials: 'include',
-           headers: this._headers
         })
         .then(this._handleResponse);
     }

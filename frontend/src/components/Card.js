@@ -12,23 +12,24 @@ const Card = ({
 
     const cardDeleteButtonClassName = // Создаём переменную, которую после зададим в `className` для кнопки удаления
     `element__trash ${isOwn ? "element__trash_visible" : ""}`;
+
+    const isLiked = card.likes.some((i) => i === currentUserId); // Определяем, есть ли у карточки лайк, поставленный текущим пользователем
+
+    const cardLikeButtonClassName = `element__button-like ${// Создаём переменную, которую после зададим в `className` для кнопки лайка
+        isLiked ? "element__button-like_active" : "" // переменная добавляющая сердечко
+    }`;
+    console.log(isLiked);
     
-    const handleRemoveCard = () => {//обработчик передающий информауию от card в Main для открытия popup delete card, а также передает всю нужную информацию в App для удаления карточки
-        // console.log(card)
+    const handleRemoveCard = () => {//обработчик передающий информауию от card в Main для открытия popup delete card, а также передает всю нужную информацию в App для удаления карточки 
         onDeleteCard(card);
     }
-    
-    const isLiked = card.likes.some((i) => i === currentUserId); // Определяем, есть ли у карточки лайк, поставленный текущим пользователем
-    const cardLikeButtonClassName = `element__button-like ${// Создаём переменную, которую после зададим в `className` для кнопки лайка
-        isLiked ? "element__button-like_active" : ""
-    }`;
 
     const handleCardClick = () => {//обработчик передающий информауию от card в Main для открытия полноразмерной картинки
         onCardClick(card);
     };
 
     const hadleLikeClick = () => {//обработчик передающий информауию от card в Main для постановки лайк
-        onCardLike(card, currentUserId);
+        onCardLike(card, isLiked);
     };
 
     return (
@@ -60,5 +61,3 @@ const Card = ({
 };
 
 export default Card;
-
-

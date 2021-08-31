@@ -50,11 +50,6 @@ const Main = ({
             return (
               <Card
                 card={card}
-                likes={card.likes}
-                cardId={card._id}
-                name={card.name}
-                link={card.link}
-                owner={card.owner}
                 key={card._id}
                 onDeleteCard={onDeleteCard}
                 onCardClick={onCardClick}
@@ -69,5 +64,6 @@ const Main = ({
 };
 
 export default Main;
+
 
 

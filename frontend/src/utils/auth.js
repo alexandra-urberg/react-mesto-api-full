@@ -42,7 +42,7 @@ class Auth {
   }
   
   const auth = new Auth({
-    url: "https://mesto-alex.nomoredomains.work",
+    url: "http://mesto-alex.nomoredomains.work",
 
     headers: {
       'Accept': 'application/json',

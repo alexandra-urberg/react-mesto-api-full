@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const helmet = require('helmet'); // помогает защитить экспресс-приложения, устанавливая различные HTTP заголовки
 const { celebrate, Joi, errors } = require('celebrate'); // валидация роутинга
 const { createUser, login } = require('./controllers/users');
+const method = require('./routes/cards'); // метод валидации ссылок на фотограии созданный в routes/cards
 const auth = require('./middlewares/auth');
 const errorsHandler = require('./middlewares/errors'); // для вывовода ошибок
 const NotFoundError = require('./errors/NotFoundError');
@@ -32,25 +33,25 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
   useFindAndModify: false,
 });
 
-app.get('/crash-test', () => { // удалить после прохождения ревью (crash-test)
-  setTimeout(() => {
-    throw new Error('Сервер сейчас упадёт');
-  }, 0);
-});
+app.use(requestLogger);
+
+// app.get('/crash-test', () => { // удалить после прохождения ревью (crash-test)
+// setTimeout(() => {
+// throw new Error('Сервер сейчас упадёт');
+// }, 0);
+// });
 
 app.post('/signup', celebrate({
   body: Joi.object().keys({
     name: Joi.string().min(2).max(30),
     about: Joi.string().min(2).max(30),
     // eslint-disable-next-line
-    avatar: Joi.string().pattern(new RegExp('/^(https?|chrome):\/\/[^\s$.?#].[^\s]*$/gm')),
+    avatar: Joi.string().custom(method),
     email: Joi.string().required().email(),
     password: Joi.string().required().min(8),
   }),
 }),
 createUser);
-
-app.use(requestLogger);
 
 app.post('/signin', celebrate({
   body: Joi.object().keys({

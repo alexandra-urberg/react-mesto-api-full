@@ -16,9 +16,9 @@ const method = (value) => {
 router.get('/cards', getCards); // запрос на получение всех карточек
 router.post('/cards', celebrate({ // запрос на создае карточки
   body: Joi.object().keys({
-    name: Joi.string().min(2).max(30),
+    name: Joi.string().required().min(2).max(30),
     // eslint-disable-next-line
-    link: Joi.string().custom(method),
+    link: Joi.string().required().custom(method),
   }),
 }),
 createCard);

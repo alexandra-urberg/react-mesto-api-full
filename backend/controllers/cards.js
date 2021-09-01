@@ -1,6 +1,7 @@
 const Card = require('../models/cards');
 const BadRequest = require('../errors/BadRequest');
 const NotFound = require('../errors/NotFoundError');
+const ForbiddenToDelete = require('../errors/ForbiddenToDelete');
 
 module.exports.getCards = (req, res, next) => { // выводим все карточки
   Card.find({})
@@ -31,11 +32,11 @@ module.exports.deleteCard = (req, res, next) => { // удаляем только
     .then((card) => {
       if (String(card.owner) === owner) {
         card.remove();
-        res.send({ message: 'Карточка успешно удалена' });
-      } else {
-        res.status(403).send({ message: 'Чужие карточки не могут быть удалены' });
+      } else if (String(card.owner) !== owner) {
+        throw next(new ForbiddenToDelete('Чужие карточки не могут быть удалены'));
       }
     })
+    .then(() => res.send({ message: 'Карточка успешно удалена' }))
     .catch((err) => {
       if (err.name === 'CastError') {
         next(new BadRequest('Переданы некорректные данные'));

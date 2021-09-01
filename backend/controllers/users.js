@@ -48,7 +48,7 @@ module.exports.login = (req, res, next) => { // signin
       bcrypt.compare(password, user.password)
         .then((matched) => {
           if (!matched) {
-            next(new Unauthorized('Передан неккоректный пароль'));
+            next(new Unauthorized('Неверный логин или пароль'));
           } const token = jwt.sign({ _id: user._id }, JWT_SECRET, { expiresIn: '7d' }); // создаем токен
           res
             .cookie('jwt', token, { // создаем куки при правильной аутентификации
@@ -65,7 +65,7 @@ module.exports.login = (req, res, next) => { // signin
       if (err.name === 'ValidationError') {
         next(new BadRequest('Поле email или password не должны быть пустыми'));
       } else {
-        next(new Unauthorized('Передан неккоректный email'));
+        next(new Unauthorized('Неверный логин или пароль'));
       } next(err);
     });
 };

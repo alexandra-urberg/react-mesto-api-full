@@ -20,9 +20,4 @@
 
 Бэкенд расположен на поддомене. В связи с этим настройка cors правил расположена на сервере в Nginx(default). Все настроенно на автоматическую, постоянную работу и в случае перезагрузки сервера все перезагрузится автоматически.
   
-**[ссылка на фронтенд проекта https://mesa-alex.nomoredomains.work](https://mesa-alex.nomoredomains.work).**
-
-**[ссылка на бэкенд проектa https://mesto-alex.nomoredomains.work](https://mesto-alex.nomoredomains.work).**
-
-**Публичный IP 62.84.112.98**
 

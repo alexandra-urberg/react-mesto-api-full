@@ -1,23 +1,25 @@
 # React-mesto-api-full
-Репозиторий для приложения проекта `Mesto`, включающий фронтенд и бэкенд части приложения со следующими возможностями: авторизации и регистрации пользователей, операции с карточками и пользователями. Бэкенд расположите в директории `backend/`, а фронтенд - в `frontend/`. 
+An Instagram-like platform that allows the user to add an image, add or remove likes to other’s images, add or change the profile picture, as well as edit personal information.
 
-**В данном проетке используются:**
+**Stack used:**
  1. Html
  2. Css
  3. Js
  4. React
- 5. NodeJs
- 6. Express 
- 7. Mongo DB
- 8. Nodemon
- 9. Mongoose
+ 5. Api
+ 6. NodeJs
+ 7. Express 
+ 8. Mongo DB
+ 9. Nodemon
+ 10. Mongoose
 
-**Защита создана с помощью:**
+**Security:**
  1. helmet
  2. cookies
  3. .env(secret-key)
  4. express Rate Limit
 
-Бэкенд расположен на поддомене. В связи с этим настройка cors правил расположена на сервере в Nginx(default). Все настроенно на автоматическую, постоянную работу и в случае перезагрузки сервера все перезагрузится автоматически.
   
+Prepared by
 
+_Alexandra Stepanova_
